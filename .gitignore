@@ -1,0 +1,9 @@
+# В git только код проекта: ядро, upload/, vendor/ и настройки с паролями сюда не попадают.
+/*
+!/.gitignore
+!/README.md
+!/contract/
+!/www/
+/www/*
+!/www/local/
+.DS_Store
