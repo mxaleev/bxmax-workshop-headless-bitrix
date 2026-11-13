@@ -1,0 +1,25 @@
+{
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "wikimedia/composer-merge-plugin": true
+    },
+    "sort-packages": true,
+    "vendor-dir": "vendor"
+  },
+  "extra": {
+    "installer-paths": {
+      "www/local/modules/{$name}/": ["type:bitrix-module"]
+    },
+    "merge-plugin": {
+      "include": [
+        "www/bitrix/composer-bx.json"
+      ]
+    }
+  },
+  "name": "omut/site-shop",
+  "require": {
+    "wikimedia/composer-merge-plugin": "^2.1",
+    "andreyryabin/sprint.migration": "dev-master"
+  }
+}
