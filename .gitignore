@@ -1,9 +1,11 @@
 # В git только код проекта: ядро, upload/, vendor/ и настройки с паролями сюда не попадают.
 /*
 !/.gitignore
+!/composer.json
 !/README.md
 !/contract/
 !/www/
 /www/*
+/www/local/modules/sprint.migration
 !/www/local/
 .DS_Store
