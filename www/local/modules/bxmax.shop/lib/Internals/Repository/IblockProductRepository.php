@@ -13,7 +13,20 @@ final class IblockProductRepository implements ProductRepositoryInterface
      */
     public function findActive(int $limit, int $offset): array
     {
-        return [];
+        $data = \CIBlockElement::GetList(
+            ['NAME' => 'ASC'],
+            ['ACTIVE' => 'Y'],
+            false,
+            false,
+            ['ID', 'NAME', 'CATALOG_PRICE_1']
+        );
+
+        $res = [];
+        while($obElement = $data->Fetch()) {
+            $res[] = $obElement;
+        }
+
+        return $res;
     }
 
     /**
