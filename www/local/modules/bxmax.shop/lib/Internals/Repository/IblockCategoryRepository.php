@@ -11,7 +11,7 @@ use Bitrix\Main\SystemException;
 use Bxmax\Shop\Internals\Contract\Repository\CategoryRepositoryInterface;
 use ErrorException;
 
-final class CategoryRepository implements CategoryRepositoryInterface
+final class IblockCategoryRepository implements CategoryRepositoryInterface
 {
     /**
      * @return array|array[]

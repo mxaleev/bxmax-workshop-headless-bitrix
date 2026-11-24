@@ -6,16 +6,16 @@ use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\Result;
 use Bitrix\Main\SystemException;
-use Bxmax\Shop\Internals\Repository\CategoryRepository;
+use Bxmax\Shop\Internals\Repository\IblockCategoryRepository;
 use ErrorException;
 
 final class CategoryService
 {
     /**
-     * @param CategoryRepository $categoryRepository
+     * @param IblockCategoryRepository $categoryRepository
      */
     public function __construct(
-        private CategoryRepository $categoryRepository,
+        private IblockCategoryRepository $categoryRepository,
     ) {}
 
     /**
@@ -29,8 +29,8 @@ final class CategoryService
     {
         $items = $this->categoryRepository->findActive();
 
-        // Перестройка массива для вывода в виде дерева
-        $items = $this->buildTreeFromNestedSets($items);
+        // Вывод в виде дерева
+        // $items = $this->buildTreeFromNestedSets($items);
 
         return (new Result())->setData([
             'items' => $items

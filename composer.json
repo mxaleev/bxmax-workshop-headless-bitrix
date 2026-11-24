@@ -2,6 +2,7 @@
   "config": {
     "allow-plugins": {
       "composer/installers": true,
+      "pestphp/pest-plugin": true,
       "wikimedia/composer-merge-plugin": true
     },
     "sort-packages": true,
@@ -21,5 +22,8 @@
   "require": {
     "wikimedia/composer-merge-plugin": "^2.1",
     "andreyryabin/sprint.migration": "dev-master"
+  },
+  "require-dev": {
+    "pestphp/pest": "^5.3"
   }
 }
