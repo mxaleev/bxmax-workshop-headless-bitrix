@@ -7,7 +7,7 @@ use Bxmax\Shop\Internals\Contract\Repository\ProductRepositoryInterface;
 
 final class ProductListService
 {
-    private const MAX_PAGE_SIZE = 50;
+    private const int MAX_PAGE_SIZE = 50;
 
     /**
      * @param ProductRepositoryInterface $productRepository
@@ -27,7 +27,7 @@ final class ProductListService
         $pageSize = min(self::MAX_PAGE_SIZE, max(1, $pageSize));
         $offset = ($page - 1) * $pageSize;
 
-        return (new Result())->setData([
+        return new Result()->setData([
             'items' => $this->productRepository->findActive($pageSize, $offset),
             'meta' => [
                 'page' => $page,
