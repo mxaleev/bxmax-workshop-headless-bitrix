@@ -2,30 +2,26 @@
 
 namespace Bxmax\Shop\Internals\Repository\Mapper;
 
-use Bitrix\Iblock\EO_Section;
-
 /**
- * Строка из инфоблока → товар в форме контракта API. Единственное место, где поля базы
+ * Строка из инфоблока → категория в форме контракта API. Единственное место, где поля базы
  * превращаются в поля ответа.
  */
 final class CategoryMapper
 {
     /**
-     * TODO: Вопрос CategoryMapper::convertFromRow
-     * Стоит ли в репозитории получать объекты и потом с этими объектами работать в маппере?
-     *
-     * @param EO_Section $section
+     * @param array $row
      * @return array
      */
-    public static function convertFromRow(EO_Section $section): array
+    public static function convertFromRow(array $row): array
     {
         return [
-            'id' => (int)$section->getId(),
-            'name' => (string)$section->getName(),
-            'code' => (string)$section->getCode(),
-            'depth_level' => (int)$section->getDepthLevel(),
-            'left_margin' => (int)$section->getLeftMargin(),
-            'right_margin' => (int)$section->getRightMargin()
+            'id' => (int)$row['ID'],
+            'name' => (string)$row['NAME'],
+            'code' => (string)$row['CODE'],
+            'depthLevel' => (int)$row['DEPTH_LEVEL'],
+            'leftMargin' => (int)$row['LEFT_MARGIN'],
+            'rightMargin' => (int)$row['RIGHT_MARGIN'],
+            'backgroundImage' => FileMapper::convertFromRow($row, 'BACKGROUND_IMAGE_FILE_'),
         ];
     }
 }
