@@ -2,6 +2,7 @@
 
 namespace Bxmax\Shop\Public\Service;
 
+use Bitrix\Main\Error;
 use Bitrix\Main\Result;
 use Bxmax\Shop\Internals\Contract\Repository\CategoryRepositoryInterface;
 
@@ -38,8 +39,13 @@ final class CategoryService
      */
     public function getById(int $id): Result
     {
-        $items = $this->categoryRepository->findActiveById($id);
-        return new Result()->setData($items);
+        $category = $this->categoryRepository->findActiveById($id);
+
+        if ($category === null) {
+            return new Result()->addError(new Error('Категория не найдена', 'CATEGORY_NOT_FOUND'))->setData([]);
+        }
+
+        return new Result()->setData($category);
     }
 
     /**

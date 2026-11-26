@@ -15,3 +15,10 @@ test('в списке существуют переданные элементы
         ->and($result->getData()['id'])
         ->toBe(2);
 });
+
+test('на неизвестный id отвечает кодом CATEGORY_NOT_FOUND', function () {
+    $result = new CategoryService(catalogCategoryWith([1]))->getById(2);
+
+    expect($result->isSuccess())->toBeFalse()
+        ->and($result->getErrors()[0]->getCode())->toBe('CATEGORY_NOT_FOUND');
+});

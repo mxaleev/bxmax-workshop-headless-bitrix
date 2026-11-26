@@ -23,9 +23,8 @@ final class ProductViewService
     {
         $product = $this->productRepository->findActiveById($id);
 
-        // TODO проверить почему http://localhost/api/v1/products/350 невозвращает ошибку
         if ($product === null) {
-            return new Result()->addError(new Error('Товар не найден', 'PRODUCT_NOT_FOUND'));
+            return new Result()->addError(new Error('Товар не найден', 'PRODUCT_NOT_FOUND'))->setData([]);
         }
 
         return new Result()->setData($product);
