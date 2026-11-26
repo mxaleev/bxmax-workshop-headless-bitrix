@@ -3,10 +3,9 @@
 namespace Bxmax\Shop\Infrastructure\Controller;
 
 use Bitrix\Main\Engine\ActionFilter;
-use Bitrix\Main\Engine\Controller;
 use Bxmax\Shop\Public\Service\CategoryService;
 
-final class Category extends Controller
+final class Category extends ApiController
 {
     protected function getDefaultPreFilters(): array
     {
@@ -31,7 +30,7 @@ final class Category extends Controller
      */
     public function listAction(CategoryService $categoryService): array
     {
-        return $categoryService->getListActive()->getData();
+        return $this->respond($categoryService->getListActive());
     }
 
     /**
@@ -41,6 +40,6 @@ final class Category extends Controller
      */
     public function getAction(CategoryService $categoryService, int $id): array
     {
-        return $categoryService->getById($id)->getData();
+        return $this->respond($categoryService->getById($id));
     }
 }

@@ -5,6 +5,7 @@ namespace Bxmax\Shop\Public\Service;
 use Bitrix\Main\Error;
 use Bitrix\Main\Result;
 use Bxmax\Shop\Internals\Contract\Repository\ProductRepositoryInterface;
+use Bxmax\Shop\Public\Enum\ErrorCode;
 
 final class ProductViewService
 {
@@ -24,7 +25,7 @@ final class ProductViewService
         $product = $this->productRepository->findActiveById($id);
 
         if ($product === null) {
-            return new Result()->addError(new Error('Товар не найден', 'PRODUCT_NOT_FOUND'))->setData([]);
+            return new Result()->addError(new Error('Товар не найден', ErrorCode::ProductNotFound->value));
         }
 
         return new Result()->setData($product);
