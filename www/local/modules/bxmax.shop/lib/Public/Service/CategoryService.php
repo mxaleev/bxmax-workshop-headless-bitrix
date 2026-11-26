@@ -29,17 +29,33 @@ final class CategoryService
     {
         $items = $this->categoryRepository->findActive();
 
+        // TODO: Вынести в параметр
         // Вывод в виде дерева
         // $items = $this->buildTreeFromNestedSets($items);
 
-        return (new Result())->setData([
+        return new Result()->setData([
             'items' => $items
         ]);
     }
 
     /**
-     * TODO: Вынести в Helpers (или что-то другое)
-     * !!! Сгенерировано через нейросеть
+     * @param int $id
+     * @return Result
+     * @throws ArgumentException
+     * @throws ErrorException
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     */
+    public function getById(int $id): Result
+    {
+        $items = $this->categoryRepository->findActiveById($id);
+        return new Result()->setData($items);
+    }
+
+    /**
+     * TODO: Вопрос buildTreeFromNestedSets
+     * Где хранить подобные функции, вынести в Helpers (или что-то другое)?
+     *
      * Формирование дерева элементов
      * @param array $items
      * @return array

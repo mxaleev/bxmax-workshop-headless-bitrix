@@ -20,7 +20,7 @@ final class ProductMapper
             'code' => (string)$row['CODE'],
             'price' => self::convertPrice(
                 $row['PRICE_AMOUNT'] ?? null,
-                    $row['PRICE_CURRENCY'] ?? null
+                $row['PRICE_CURRENCY'] ?? null
             ),
         ];
     }

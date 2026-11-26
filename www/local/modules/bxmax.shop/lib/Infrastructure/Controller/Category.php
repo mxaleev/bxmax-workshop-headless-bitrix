@@ -41,4 +41,18 @@ final class Category extends Controller
     {
         return $categoryService->getListActive()->getData();
     }
+
+    /**
+     * @param CategoryService $categoryService
+     * @param int $id
+     * @return array
+     * @throws ArgumentException
+     * @throws ErrorException
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     */
+    public function getAction(CategoryService $categoryService, int $id): array
+    {
+        return $categoryService->getById($id)->getData();
+    }
 }

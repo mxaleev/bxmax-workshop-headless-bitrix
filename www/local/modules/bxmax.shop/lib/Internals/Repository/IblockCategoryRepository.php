@@ -2,6 +2,8 @@
 
 namespace Bxmax\Shop\Internals\Repository;
 
+use Bitrix\Catalog\Infrastructure\Rest\Dto\Mapping\CatalogMapper;
+use Bitrix\Iblock\EO_Section;
 use Bitrix\Iblock\Iblock;
 use Bitrix\Iblock\IblockTable;
 use Bitrix\Iblock\SectionTable;
@@ -9,6 +11,7 @@ use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Bxmax\Shop\Internals\Contract\Repository\CategoryRepositoryInterface;
+use Bxmax\Shop\Internals\Repository\Mapper\CategoryMapper;
 use ErrorException;
 
 final class IblockCategoryRepository implements CategoryRepositoryInterface
@@ -27,7 +30,48 @@ final class IblockCategoryRepository implements CategoryRepositoryInterface
         $code = 'clothes';
         $iBlockId = $this->getIblockIdByCode($code);
 
-        $rsSections = SectionTable::getList([
+        $sections = SectionTable::getList([
+            'select' => [
+                'ID',
+                'IBLOCK_SECTION_ID',
+                'NAME',
+                'CODE',
+                'DEPTH_LEVEL',
+                'LEFT_MARGIN',
+                'RIGHT_MARGIN',
+            ],
+            'filter' => [
+                '=IBLOCK_ID' => $iBlockId,
+                '=GLOBAL_ACTIVE' => 'Y',
+                '=ACTIVE' => 'Y',
+            ],
+            'order' => [
+                'LEFT_MARGIN' => 'ASC',
+            ],
+        ])->fetchCollection();
+
+        return array_map(
+            CategoryMapper::convertFromRow(...),
+            iterator_to_array($sections, false)
+        );
+    }
+
+    /**
+     * @param int $id
+     * @return array|null
+     * @throws ArgumentException
+     * @throws ErrorException
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     */
+    public function findActiveById(int $id): ?array
+    {
+        // TODO: Символьный код ИБ вынести в отдельную сущность
+        // Символьный код инфоблока
+        $code = 'clothes';
+        $iBlockId = $this->getIblockIdByCode($code);
+
+        $rsSections = SectionTable::getByPrimary($id, [
             'select' => [
                 'ID',
                 'IBLOCK_SECTION_ID',
@@ -40,25 +84,14 @@ final class IblockCategoryRepository implements CategoryRepositoryInterface
             'filter' => [
                 '=IBLOCK_ID' => $iBlockId,
                 '=ACTIVE' => 'Y',
-            ],
-            'order' => [
-                'LEFT_MARGIN' => 'ASC',
-            ],
-        ])->fetchCollection();
+            ]
+        ])->fetchObject();
 
-        $sections = [];
-        foreach ($rsSections as $section) {
-            $sections[] = [
-                'id' => $section->getId(),
-                'name' => $section->getName(),
-                'code' => $section->getCode(),
-                'depth_level' => $section->getDepthLevel(),
-                'left_margin' => $section->getLeftMargin(),
-                'right_margin' => $section->getRightMargin()
-            ];
+        if (!$rsSections instanceof EO_Section) {
+            return null;
         }
 
-        return $sections;
+        return CategoryMapper::convertFromRow($rsSections);
     }
 
     /**
