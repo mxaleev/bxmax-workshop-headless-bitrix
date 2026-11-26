@@ -6,24 +6,21 @@ use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\Result;
 use Bitrix\Main\SystemException;
+use Bxmax\Shop\Internals\Contract\Repository\CategoryRepositoryInterface;
 use Bxmax\Shop\Internals\Repository\IblockCategoryRepository;
 use ErrorException;
 
 final class CategoryService
 {
     /**
-     * @param IblockCategoryRepository $categoryRepository
+     * @param CategoryRepositoryInterface $categoryRepository
      */
     public function __construct(
-        private IblockCategoryRepository $categoryRepository,
+        private CategoryRepositoryInterface $categoryRepository,
     ) {}
 
     /**
      * @return Result
-     * @throws ArgumentException
-     * @throws ObjectPropertyException
-     * @throws SystemException
-     * @throws ErrorException
      */
     public function getListActive(): Result
     {
@@ -39,12 +36,10 @@ final class CategoryService
     }
 
     /**
+     * TODO: Нужно ли разделять сервисы на List и View если используется один и тот же репозиторий?
+     *
      * @param int $id
      * @return Result
-     * @throws ArgumentException
-     * @throws ErrorException
-     * @throws ObjectPropertyException
-     * @throws SystemException
      */
     public function getById(int $id): Result
     {

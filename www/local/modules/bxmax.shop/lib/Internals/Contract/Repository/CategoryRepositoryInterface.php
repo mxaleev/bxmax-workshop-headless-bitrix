@@ -8,4 +8,6 @@ interface CategoryRepositoryInterface
      * @return array
      */
     public function findActive(): array;
+
+    public function findActiveById(int $id): ?array;
 }

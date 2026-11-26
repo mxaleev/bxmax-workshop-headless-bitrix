@@ -2,7 +2,6 @@
 
 namespace Bxmax\Shop\Internals\Repository;
 
-use Bitrix\Catalog\Infrastructure\Rest\Dto\Mapping\CatalogMapper;
 use Bitrix\Iblock\EO_Section;
 use Bitrix\Iblock\Iblock;
 use Bitrix\Iblock\IblockTable;

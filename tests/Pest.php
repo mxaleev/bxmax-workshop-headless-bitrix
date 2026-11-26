@@ -18,3 +18,19 @@ function product(int $id, ?string $amount = '1000.00'): array
         'price' => $amount === null ? null : ['amount' => $amount, 'currency' => 'RUB'],
     ];
 }
+
+/**
+ * @param int $id
+ * @return array
+ */
+function category(int $id): array
+{
+    return [
+        'id' => $id,
+        'name' => "Категория {$id}",
+        'code' => "category-{$id}",
+        'depth_level' => $id,
+        'left_margin' => $id,
+        'right_margin' => $id,
+    ];
+}

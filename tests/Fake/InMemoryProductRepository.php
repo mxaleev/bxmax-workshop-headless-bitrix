@@ -8,9 +8,7 @@ final readonly class InMemoryProductRepository implements ProductRepositoryInter
 {
     public function __construct(
         private array $products,
-    ) {
-
-    }
+    ) {}
 
     /**
      * @param int $limit
