@@ -1,0 +1,31 @@
+{
+  "status": "success",
+  "data": {
+    "items": [
+      {
+        "id": 9,
+        "name": "Штаны Цветочная Поляна",
+        "code": "pants-flower-glade",
+        "price": {
+          "amount": "2199.00",
+          "currency": "RUB"
+        }
+      },
+      {
+        "id": 38,
+        "name": "Туфли Ультра Лайн",
+        "code": "shoes-ultra-line",
+        "price": {
+          "amount": "2799.00",
+          "currency": "RUB"
+        }
+      }
+    ],
+    "meta": {
+      "page": 1,
+      "pageSize": 2,
+      "total": 38
+    }
+  },
+  "errors": []
+}

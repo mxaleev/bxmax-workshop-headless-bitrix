@@ -4,6 +4,7 @@
 !/composer.json
 !/README.md
 !/contract/
+!/tests/
 !/www/
 /www/*
 /www/local/modules/sprint.migration

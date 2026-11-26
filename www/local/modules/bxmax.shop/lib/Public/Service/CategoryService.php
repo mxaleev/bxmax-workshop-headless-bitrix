@@ -2,44 +2,57 @@
 
 namespace Bxmax\Shop\Public\Service;
 
-use Bitrix\Main\ArgumentException;
-use Bitrix\Main\ObjectPropertyException;
+use Bitrix\Main\Error;
 use Bitrix\Main\Result;
-use Bitrix\Main\SystemException;
-use Bxmax\Shop\Internals\Repository\CategoryRepository;
-use ErrorException;
+use Bxmax\Shop\Internals\Contract\Repository\CategoryRepositoryInterface;
+use Bxmax\Shop\Public\Enum\ErrorCode;
 
 final class CategoryService
 {
     /**
-     * @param CategoryRepository $categoryRepository
+     * @param CategoryRepositoryInterface $categoryRepository
      */
     public function __construct(
-        private CategoryRepository $categoryRepository,
+        private CategoryRepositoryInterface $categoryRepository,
     ) {}
 
     /**
      * @return Result
-     * @throws ArgumentException
-     * @throws ObjectPropertyException
-     * @throws SystemException
-     * @throws ErrorException
      */
     public function getListActive(): Result
     {
         $items = $this->categoryRepository->findActive();
 
-        // Перестройка массива для вывода в виде дерева
-        $items = $this->buildTreeFromNestedSets($items);
+        // TODO: Вынести в параметр
+        // Вывод в виде дерева
+        // $items = $this->buildTreeFromNestedSets($items);
 
-        return (new Result())->setData([
+        return new Result()->setData([
             'items' => $items
         ]);
     }
 
     /**
-     * TODO: Вынести в Helpers (или что-то другое)
-     * !!! Сгенерировано через нейросеть
+     * TODO: Нужно ли разделять сервисы на List и View если используется один и тот же репозиторий?
+     *
+     * @param int $id
+     * @return Result
+     */
+    public function getById(int $id): Result
+    {
+        $category = $this->categoryRepository->findActiveById($id);
+
+        if ($category === null) {
+            return new Result()->addError(new Error('Категория не найдена', ErrorCode::CategoryNotFound->value));
+        }
+
+        return new Result()->setData($category);
+    }
+
+    /**
+     * TODO: Вопрос buildTreeFromNestedSets
+     * Где хранить подобные функции, вынести в Helpers (или что-то другое)?
+     *
      * Формирование дерева элементов
      * @param array $items
      * @return array

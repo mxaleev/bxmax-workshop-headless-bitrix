@@ -2,8 +2,8 @@
 
 use Bxmax\Shop\Internals\Contract\Repository\CategoryRepositoryInterface;
 use Bxmax\Shop\Internals\Contract\Repository\ProductRepositoryInterface;
-use Bxmax\Shop\Internals\Repository\ArrayProductRepository;
-use Bxmax\Shop\Internals\Repository\CategoryRepository;
+use Bxmax\Shop\Internals\Repository\IblockCategoryRepository;
+use Bxmax\Shop\Internals\Repository\IblockProductRepository;
 
 return [
     'controllers' => [
@@ -15,10 +15,10 @@ return [
     'services' => [
         'value' => [
             CategoryRepositoryInterface::class => [
-                'className' => CategoryRepository::class,
+                'className' => IblockCategoryRepository::class,
             ],
             ProductRepositoryInterface::class => [
-                'className' => ArrayProductRepository::class,
+                'className' => IblockProductRepository::class,
             ],
         ],
         'readonly' => true,

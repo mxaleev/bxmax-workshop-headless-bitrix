@@ -17,6 +17,12 @@ interface ProductRepositoryInterface
     public function findActive(int $limit, int $offset): array;
 
     /**
+     * @param int $id
+     * @return array|null
+     */
+    public function findActiveById(int $id): ?array;
+
+    /**
      * @return int
      */
     public function countActive(): int;
