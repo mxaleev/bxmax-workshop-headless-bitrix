@@ -2,13 +2,8 @@
 
 namespace Bxmax\Shop\Public\Service;
 
-use Bitrix\Main\ArgumentException;
-use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\Result;
-use Bitrix\Main\SystemException;
 use Bxmax\Shop\Internals\Contract\Repository\CategoryRepositoryInterface;
-use Bxmax\Shop\Internals\Repository\IblockCategoryRepository;
-use ErrorException;
 
 final class CategoryService
 {

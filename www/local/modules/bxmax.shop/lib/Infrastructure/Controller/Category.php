@@ -2,13 +2,9 @@
 
 namespace Bxmax\Shop\Infrastructure\Controller;
 
-use Bitrix\Main\ArgumentException;
 use Bitrix\Main\Engine\ActionFilter;
 use Bitrix\Main\Engine\Controller;
-use Bitrix\Main\ObjectPropertyException;
-use Bitrix\Main\SystemException;
 use Bxmax\Shop\Public\Service\CategoryService;
-use ErrorException;
 
 final class Category extends Controller
 {
@@ -32,10 +28,6 @@ final class Category extends Controller
     /**
      * @param CategoryService $categoryService
      * @return array
-     * @throws ArgumentException
-     * @throws ObjectPropertyException
-     * @throws SystemException
-     * @throws ErrorException
      */
     public function listAction(CategoryService $categoryService): array
     {
@@ -46,10 +38,6 @@ final class Category extends Controller
      * @param CategoryService $categoryService
      * @param int $id
      * @return array
-     * @throws ArgumentException
-     * @throws ErrorException
-     * @throws ObjectPropertyException
-     * @throws SystemException
      */
     public function getAction(CategoryService $categoryService, int $id): array
     {

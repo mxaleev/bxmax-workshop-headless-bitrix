@@ -6,7 +6,7 @@ use Bxmax\Shop\Internals\Contract\Repository\ProductRepositoryInterface;
 
 final class ArrayProductRepository implements ProductRepositoryInterface
 {
-    private const PRODUCTS = [
+    private const array PRODUCTS = [
         [
             'id' => 1,
             'name' => 'Товар 1',
@@ -32,6 +32,17 @@ final class ArrayProductRepository implements ProductRepositoryInterface
     public function findActive(int $limit, int $offset): array
     {
         return array_slice(self::PRODUCTS, $offset, $limit);
+    }
+
+    /**
+     * @param int $id
+     * @return array|null
+     */
+    public function findActiveById(int $id): ?array
+    {
+        $products = self::PRODUCTS;
+        $key = array_search($id, array_column($products, 'id'), true);
+        return ($key !== false) ? $products[$key] : null;
     }
 
     /**
